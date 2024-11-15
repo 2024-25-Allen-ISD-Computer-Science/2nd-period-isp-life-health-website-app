@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Diagnosis & Tracking</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f8fb;
+            color: #333;
+            padding: 0;
+            margin: 0;
+        }
+
+        header {
+            background-color: #4caf50;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.2em;
+        }
+
+        header .btn {
+            text-decoration: none;
+            color: white;
+            background-color: #e91e63;
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin: 10px;
+            font-size: 1.1em;
+        }
+
+        header .btn:hover {
+            background-color: #c2185b;
+        }
+
+        main {
+            padding: 20px;
+            text-align: center;
+        }
+
+        textarea {
+            width: 80%;
+            height: 150px;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 1.1em;
+            font-family: 'Arial', sans-serif;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #4caf50;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 1.1em;
+            color: white;
+            background-color: #4caf50;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #388e3c;
+        }
+
+        #diagnosisResult {
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: #4caf50;
+            font-weight: bold;
+        }
+
+        #healthRecords {
+            margin-top: 30px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2em;
+            }
+
+            header p {
+                font-size: 1em;
+            }
+
+            textarea {
+                width: 90%;
+            }
+
+            button {
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Welcome to Health Diagnosis & Tracking</h1>
+        <p>Your health companion for monitoring and diagnosis</p>
+        <a href="diagnosis.html" class="btn">Start Diagnosis</a>
+        <a href="dashboard.html" class="btn">View Health Dashboard</a>
+    </header>
+
+    <div id="diagnosis" style="display:none;">
+        <header>
+            <h2>Self Diagnosis</h2>
+            <p>Enter your symptoms and get a possible diagnosis</p>
+        </header>
+        <main>
+            <form id="diagnosisForm">
+                <textarea id="symptoms" placeholder="Describe your symptoms here..."></textarea><br>
+                <button type="submit" class="btn">Get Diagnosis</button>
+            </form>
+            <p id="diagnosisResult"></p>
+        </main>
+    </div>
+
+    <div id="dashboard" style="display:none;">
+        <header>
+            <h2>Your Health Dashboard</h2>
+            <p>Track your symptoms and view health history</p>
+        </header>
+        <main>
+            <div id="healthRecords"></div>
+        </main>
+    </div>
+
+    <script>
+        const diagnosisLink = document.querySelector('a[href="diagnosis.html"]');
+        const dashboardLink = document.querySelector('a[href="dashboard.html"]');
+        const diagnosisPage = document.getElementById("diagnosis");
+        const dashboardPage = document.getElementById("dashboard");
+
+        diagnosisLink.addEventListener("click", function(e) {
+            e.preventDefault();
+            diagnosisPage.style.display = "block";
+            document.querySelector('header').style.display = "none";
+            dashboardPage.style.display = "none";
+        });
+
+        dashboardLink.addEventListener("click", function(e) {
+            e.preventDefault();
+            dashboardPage.style.display = "block";
+            document.querySelector('header').style.display = "none";
+            diagnosisPage.style.display = "none";
+        });
+
+        document.getElementById("diagnosisForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            const symptoms = document.getElementById("symptoms").value;
+            const diagnosis = getDiagnosis(symptoms);
+            document.getElementById("diagnosisResult").textContent = diagnosis;
+        });
+
+        function getDiagnosis(symptoms) {
+            if (symptoms.toLowerCase().includes('fever')) {
+                return 'Potential diagnosis: Flu or COVID-19. Please consult a doctor.';
+            }
+            if (symptoms.toLowerCase().includes('cough')) {
+                return 'Potential diagnosis: Cold or Allergies. Consult a healthcare provider.';
+            }
+            return 'No clear diagnosis. Please consult a doctor for a professional opinion.';
+        }
+    </script>
+</body>
+</html>

@@ -66,16 +66,7 @@ button = tk.Button(
 )
 button.pack(pady=10)
 
-# Add a footer note
-footer_label = tk.Label(
-    window, 
-    text="Note: This tool is for informational purposes only.", 
-    font=("Helvetica", 9, "italic"),
-    bg="#eaf7f9",
-    fg="#666666",
-    wraplength=350
-)
-footer_label.pack(side="bottom", pady=10)
+
 
 # Run the application
 window.mainloop()

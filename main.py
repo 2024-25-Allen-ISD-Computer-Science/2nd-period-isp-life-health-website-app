@@ -36,9 +36,17 @@ entry.pack(pady=5)
 def backend(sym):
     # we're gonna do all the machine learning stuff right here
     stuff = [
-        ["flu", "fever"],
-        ["cold", "nose"],
-        ["cancer", "bald, balding"],
+        ["cancer", "bald, balding, weight loss, fatigue"],
+        ["flu", "fever, headache, body aches, chills, sore throat"],
+        ["cold", "runny nose, congestion, sneezing, mild cough"],
+        ["migraine", "severe headache, nausea, sensitivity to light"],
+        ["diabetes", "frequent urination, increased thirst, fatigue, blurred vision"],
+        ["allergy", "sneezing, itchy eyes, runny nose, rash"],
+        ["covid-19", "fever, cough, loss of taste or smell, fatigue, shortness of breath"],
+        ["pneumonia", "chest pain, shortness of breath, fever, coughing"],
+        ["anemia", "fatigue, weakness, pale skin, shortness of breath"],
+        ["depression", "fatigue, loss of interest, difficulty concentrating, changes in sleep"]
+        
     ]
 
     cond_cond = [i[0] for i in stuff] # this is all of the first values in each array, so all the conditions/diseases

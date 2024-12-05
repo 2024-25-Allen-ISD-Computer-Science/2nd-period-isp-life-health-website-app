@@ -1,0 +1,120 @@
+import tkinter as tk
+
+# Creating the main window
+window = tk.Tk()
+window.title("Health Diagnosis Tool")
+window.geometry("500x400")  # Increased window size for better usability
+window.configure(bg="#f2f2f2")  # Background color changed to a softer shade
+
+# Title Label with improved font and style
+title_label = tk.Label(
+    window, 
+    text="Smart Health Tool", 
+    font=("Helvetica", 16, "bold"),
+    bg="#4CAF50",  # Green background for the title
+    fg="white",
+    padx=20,
+    pady=20
+)
+title_label.pack(fill="x")  # Make the title span across the width of the window
+
+# Adding a label for input section with some styling
+label = tk.Label(
+    window, 
+    text="Enter your symptoms below:", 
+    font=("Helvetica", 12),
+    bg="#f2f2f2",
+    fg="#333333",
+)
+label.pack(pady=10)
+
+# Prompt Textbox with rounded corners and improved border
+entry = tk.Entry(window, font=("Helvetica", 12), width=40, bd=3, relief="solid", borderwidth=2)
+entry.pack(pady=10)
+
+# Backend function for diagnosis (unchanged)
+def backend(sym):
+    stuff = [
+        ["cancer", "bald, balding, weight loss, fatigue"],
+        ["flu", "fever, headache, body aches, chills, sore throat"],
+        ["cold", "runny nose, congestion, sneezing, mild cough"],
+        ["migraine", "severe headache, nausea, sensitivity to light"],
+        ["diabetes", "frequent urination, increased thirst, fatigue, blurred vision"],
+        ["allergy", "sneezing, itchy eyes, runny nose, rash"],
+        ["covid-19", "fever, cough, loss of taste or smell, fatigue, shortness of breath"],
+        ["pneumonia", "chest pain, shortness of breath, fever, coughing"],
+        ["anemia", "fatigue, weakness, pale skin, shortness of breath"],
+        ["depression", "fatigue, loss of interest, difficulty concentrating, changes in sleep"]
+    ]
+
+    cond_cond = [i[0] for i in stuff]
+    symp = [i[1] for i in stuff]
+
+    from sklearn.feature_extraction.text import TfidfVectorizer
+    from sklearn.neighbors import KNeighborsClassifier
+    import numpy as np
+
+    v_thing = TfidfVectorizer()
+    TRANS_SYMP = v_thing.fit_transform(symp)
+
+    main_m = KNeighborsClassifier(n_neighbors=1)
+    main_m.fit(TRANS_SYMP, cond_cond)
+
+    def cond_check(user_input):
+        user_input_to_vector = v_thing.transform([user_input])
+        prediction = main_m.predict(user_input_to_vector)
+        return prediction[0]
+
+    cond = cond_check(sym)
+    return cond
+
+# Function to handle the display of diagnosis result
+def get_text():
+    text = entry.get()
+    if text.strip():  # Check if input is not empty
+        processed_text = backend(text)
+        label2 = tk.Label(
+            window, 
+            text=f"Diagnosis: {processed_text}", 
+            font=("Helvetica", 12),
+            bg="#eaf7f9",
+            fg="#003366",
+            wraplength=400
+        )
+        label2.pack(pady=15)
+    else:
+        label2 = tk.Label(
+            window, 
+            text="Please enter your symptoms.", 
+            font=("Helvetica", 12),
+            bg="#eaf7f9",
+            fg="red",
+            wraplength=400
+        )
+        label2.pack(pady=15)
+
+# Submit Button with rounded edges and hover effect
+def on_enter(event):
+    button.config(bg="#005f73")
+
+def on_leave(event):
+    button.config(bg="#00796b")
+
+button = tk.Button(
+    window, 
+    text="Submit", 
+    font=("Helvetica", 14, "bold"), 
+    bg="#00796b", 
+    fg="white", 
+    activebackground="#004d40", 
+    relief="flat", 
+    padx=20,
+    pady=10,
+    command=get_text
+)
+button.pack(pady=20)
+button.bind("<Enter>", on_enter)
+button.bind("<Leave>", on_leave)
+
+# Run the application
+window.mainloop()

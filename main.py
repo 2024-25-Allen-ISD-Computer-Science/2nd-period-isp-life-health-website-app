@@ -1,6 +1,5 @@
 import tkinter as tk
 
-# Initialize the main window
 window = tk.Tk()
 window.title("Health Self-Diagnosis Tool")
 window.geometry("400x300")  # Adjust the size of the window

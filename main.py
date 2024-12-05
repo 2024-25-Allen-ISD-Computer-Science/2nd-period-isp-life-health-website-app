@@ -74,6 +74,7 @@ entry.pack(pady=5)
 # our marvelous backend func
 def backend(sym):
     stuff = [  # defining 2d array
+        ["unknown","sdfnajkfndswajisdhfouhal]
         ["cancer", "bald, balding, weight loss, fatigue"],
         ["flu", "fever, headache, body aches, chills, sore throat"],
         ["cold", "runny nose, congestion, sneezing, mild cough"],

@@ -9,13 +9,13 @@ def backend(insx, titles, descps):
     nltk.download("omw-1.4")
 
     def derive(texts):
-        lem = WordNetLemmatizer()
+        lem = WordNetLemmatizer() # this word lemmatizer function just gets the deriviatives of the word using the databases downloaded earlier
         devd = []
         for text in texts:
             words = text.split()
             combined = " ".join(
-                lem.lemmatize(word.lower(), pos=wordnet.VERB) + " " +
-                lem.lemmatize(word.lower(), pos=wordnet.NOUN)
+                lem.lemmatize(word.lower(), pos=wordnet.VERB) + " " + # for verbs
+                lem.lemmatize(word.lower(), pos=wordnet.NOUN) # and nouns
                 for word in words
             )
             devd.append(combined)
@@ -23,10 +23,10 @@ def backend(insx, titles, descps):
 
     def search(inn):
 
-        derive_descps = derive(descps)
+        derive_descps = derive(descps) # using the derive function
         
-        vec = TfidfVectorizer()
-        vector_descps = vec.fit_transform(derive_descps)
+        vec = TfidfVectorizer() # converting the words into numbers/vectors/tokens using an importance algorithm that conisders how many times a word is used, the uniqueness of the word, etc.
+        vector_descps = vec.fit_transform(derive_descps) # fitting the vectors to the words
     
         main_m = KNeighborsClassifier(n_neighbors=1)
         main_m.fit(vector_descps, titles)

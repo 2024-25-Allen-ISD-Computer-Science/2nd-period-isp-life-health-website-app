@@ -86,28 +86,12 @@ def backend(sym):
         ["depression", "fatigue, loss of interest, difficulty concentrating, changes in sleep"]
     ]
 
-    cond_cond = [i[0] for i in stuff]
+    cond = [i[0] for i in stuff]
     symp = [i[1] for i in stuff]
 
-    from sklearn.feature_extraction.text import TfidfVectorizer
-    from sklearn.neighbors import KNeighborsClassifier
-    import numpy as np
+    return back.backend(sym, cond, symp)
 
-    v_thing = TfidfVectorizer()
-    TRANS_SYMP = v_thing.fit_transform(symp)
-
-    main_m = KNeighborsClassifier(n_neighbors=1)
-    main_m.fit(TRANS_SYMP, cond_cond)
-
-    def cond_check(user_input):
-        user_input_to_vector = v_thing.transform([user_input])
-        prediction = main_m.predict(user_input_to_vector)
-        return prediction[0]
-
-    cond = cond_check(sym)
-    return cond
-
-# Return the text from backend into a label
+# return the text from backend into a label
 def get_text():
     text = entry.get()
     processed_text = backend(text)

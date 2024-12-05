@@ -1,4 +1,5 @@
 import tkinter as tk
+import back
 
 # making the window
 window = tk.Tk()
@@ -34,41 +35,7 @@ entry.pack(pady=5)
 
 # this is where our backend function is
 def backend(sym):
-    # we're gonna do all the machine learning stuff right here
-    stuff = [
-        ["cancer", "bald, balding, weight loss, fatigue"],
-        ["flu", "fever, headache, body aches, chills, sore throat"],
-        ["cold", "runny nose, congestion, sneezing, mild cough"],
-        ["migraine", "severe headache, nausea, sensitivity to light"],
-        ["diabetes", "frequent urination, increased thirst, fatigue, blurred vision"],
-        ["allergy", "sneezing, itchy eyes, runny nose, rash"],
-        ["covid-19", "fever, cough, loss of taste or smell, fatigue, shortness of breath"],
-        ["pneumonia", "chest pain, shortness of breath, fever, coughing"],
-        ["anemia", "fatigue, weakness, pale skin, shortness of breath"],
-        ["depression", "fatigue, loss of interest, difficulty concentrating, changes in sleep"]
-        
-    ]
-
-    cond_cond = [i[0] for i in stuff] # this is all of the first values in each array, so all the conditions/diseases
-    symp = [i[1] for i in stuff] # this is all of the second values in each array, so all the symptoms
-
-    from sklearn.feature_extraction.text import TfidfVectorizer # alright so this uses a vectorizer which basically converts words into tokens or numbers based on the amount of times the word is used and the relative importance of a word (using something called tf-idf, the amount of times a word is used - a how common/rare a word is in a collection of data, the data in this case being the 2 dimensional array: "stuff")
-    from sklearn.neighbors import KNeighborsClassifier # okay, so we know that each word is a token, so what this basically is is distance formula. it calculates the distance from the tokens and finds the closest matches.
-    import numpy as np # for better/more optimized arrays and data structs
-
-    v_thing = TfidfVectorizer() # assigning the vectorizer function (defined earlier) to a variable
-    TRANS_SYMP = v_thing.fit_transform(symp) # assigns importance to the words using tf-idf and converts the words into numbers/vectors
-
-    main_m = KNeighborsClassifier(n_neighbors=1) # assigns the k neighbor function (defined earlier) with k = 1 so it'll choose the one closest distance
-    main_m.fit(TRANS_SYMP, cond_cond) # training the model to match the vectors from TRANS_SYMP to the conditions from the i[1] from the 2d array "stuff"
-
-    def cond_check(user_input):
-        user_input_to_vector = v_thing.transform([user_input]) # vectorize this too
-        prediction = main_m.predict(user_input_to_vector) # k = 1 so this chooses the one best fitting choice from the cond_cond array or i[0] in 2d array "stuff"
-        return prediction[0] # returns the #1 prediction!! if it can't match anything, it will choose the first item in cond_cond, so we have to make sure that that's set accordingly
-
-    cond = cond_check(sym)
-    return cond
+    return back.backend(sym)
 
 # return the text from backend into a label thing
 def get_text():

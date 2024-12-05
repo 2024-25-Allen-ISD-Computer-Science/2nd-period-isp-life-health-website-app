@@ -28,14 +28,14 @@ def backend(insx, titles, descps):
         vec = TfidfVectorizer() # converting the words into numbers/vectors/tokens using an importance algorithm that conisders how many times a word is used, the uniqueness of the word, etc.
         vector_descps = vec.fit_transform(derive_descps) # fitting the vectors to the words
     
-        main_m = KNeighborsClassifier(n_neighbors=1)
-        main_m.fit(vector_descps, titles)
+        main_m = KNeighborsClassifier(n_neighbors=1) # modified complex distance formula to find distance between vectors and choose the closest one
+        main_m.fit(vector_descps, titles) # assign the vectorized descriptions to the titles
         
 
         def search_model(ina):
-            d_ina = derive([ina])[0] 
-            ina_vec = vec.transform([d_ina])
-            prediction = main_m.predict(ina_vec)
+            d_ina = derive([ina])[0] # derive input nouns and verbs
+            ina_vec = vec.transform([d_ina]) # vectorize derived input
+            prediction = main_m.predict(ina_vec) # use the distance formula neighbor algorithm to find the closest matching titles based on descriptions
             return prediction[0]
 
         final = search_model(insx)

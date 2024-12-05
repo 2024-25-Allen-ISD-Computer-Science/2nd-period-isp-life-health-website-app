@@ -1,32 +1,33 @@
 import tkinter as tk
 from tkinter import ttk
+import back
 
-# creating the main window
+# make main window
 window = tk.Tk()
 window.title("Health Diagnosis Tool")
-window.geometry("500x400")  # increased window size for better layout
-window.configure(bg="#d4f1f9")  # changed background color for a more pleasant look
+window.geometry("500x400")  # set resolution
+window.configure(bg="#d4f1f9")  # background color
 
-# Creating the notebook (tabbed interface) for switching between pages
+# making notebook to switch between different pages
 notebook = ttk.Notebook(window)
 notebook.pack(fill='both', expand=True)
 
-# Tab 1 - Main Interface
+# main gui
 main_frame = ttk.Frame(notebook, width=500, height=400)
 main_frame.pack(fill='both', expand=True)
 notebook.add(main_frame, text="Diagnosis Tool")
 
-# Tab 2 - Explanation Page
+# second tab for explanation
 explanation_frame = ttk.Frame(notebook, width=500, height=400)
 explanation_frame.pack(fill='both', expand=True)
 notebook.add(explanation_frame, text="How it Works")
 
-# Main Interface
+# main gui code
 
-# Title Label
+# label for the title
 title_label = tk.Label(
     main_frame, 
-    text="Health Diagnosis Tool", 
+    text="Diagnosing Tool", 
     font=("Helvetica", 16, "bold"),
     bg="#d4f1f9",
     fg="#003366",
@@ -34,7 +35,7 @@ title_label = tk.Label(
 )
 title_label.pack()
 
-# Explanation text on the second page
+# professional sounding explanation
 explanation_text = """
 This tool uses machine learning to predict possible conditions
 based on the symptoms you provide. It processes your input
@@ -56,7 +57,7 @@ explanation_label = tk.Label(
 )
 explanation_label.pack()
 
-# Label for user input
+# take user input from here
 input_label = tk.Label(
     main_frame, 
     text="Enter your symptoms below:", 
@@ -66,14 +67,13 @@ input_label = tk.Label(
 )
 input_label.pack(pady=10)
 
-# Input Textbox
+# input textbox
 entry = tk.Entry(main_frame, font=("Helvetica", 12), width=35, bd=2, relief="solid")
 entry.pack(pady=5)
 
-# This is where our backend function is
+# our marvelous backend func
 def backend(sym):
-    # keeping the backend code unchanged
-    stuff = [
+    stuff = [  # defining 2d array
         ["cancer", "bald, balding, weight loss, fatigue"],
         ["flu", "fever, headache, body aches, chills, sore throat"],
         ["cold", "runny nose, congestion, sneezing, mild cough"],
@@ -86,8 +86,8 @@ def backend(sym):
         ["depression", "fatigue, loss of interest, difficulty concentrating, changes in sleep"]
     ]
 
-    cond = [i[0] for i in stuff]
-    symp = [i[1] for i in stuff]
+    cond = [i[0] for i in stuff] # spllitting the 2d array into the conditions i[0] the first option
+    symp = [i[1] for i in stuff] # and i[1] the second one with the descriptions for everything
 
     return back.backend(sym, cond, symp)
 
@@ -105,7 +105,7 @@ def get_text():
     )
     result_label.pack()
 
-# Submit Button
+# submit button
 submit_button = tk.Button(
     main_frame, 
     text="Submit", 
@@ -119,5 +119,5 @@ submit_button = tk.Button(
 )
 submit_button.pack(pady=20)
 
-# Run the application
+# run app
 window.mainloop()

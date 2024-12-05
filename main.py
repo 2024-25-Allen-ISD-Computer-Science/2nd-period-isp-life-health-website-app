@@ -1,25 +1,24 @@
 import tkinter as tk
 
-# Initialize the main window
+# making the window
 window = tk.Tk()
-window.title("Health Self-Diagnosis Tool")
-window.geometry("400x300")  # Adjust the size of the window
+window.title("health thing")
+window.geometry("400x300")  # make the window with 400 x 300 res
 
-# Set a background color
-window.configure(bg="#eaf7f9")
+window.configure(bg="#eaf7f9") # bg color
 
-# Add a title label
+# title
 title_label = tk.Label(
     window, 
-    text="Welcome to the Health Self-Diagnosis Tool", 
+    text="Health Tool!!", 
     font=("Helvetica", 14, "bold"),
     bg="#eaf7f9",
     fg="#003366",
-    wraplength=350
+    wraplength=350 # wrapping text in window
 )
 title_label.pack(pady=10)
 
-# Add a label for the symptoms input
+# adding a label for input
 label = tk.Label(
     window, 
     text="Enter your symptoms below:", 
@@ -29,16 +28,16 @@ label = tk.Label(
 )
 label.pack(pady=5)
 
-# Add an entry widget for symptoms input
+# prompt textbox
 entry = tk.Entry(window, font=("Helvetica", 12), width=30, bd=2, relief="solid")
 entry.pack(pady=5)
 
-# Define the backend function (placeholder for the OpenAI API call)
+# this is where our backend function is
 def backend(sym):
-    # Here you could integrate the OpenAI API or any other functionality
+    # we're gonna do all the machine learning stuff right here
     return f"Processing symptoms: {sym}"
 
-# Define the function to handle button click
+# return the text from backend into a label thing
 def get_text():
     text = entry.get()
     processed_text = backend(text)
@@ -52,7 +51,7 @@ def get_text():
     )
     label2.pack(pady=10)
 
-# Add a submit button
+# submit button
 button = tk.Button(
     window, 
     text="Submit", 
@@ -68,5 +67,5 @@ button.pack(pady=10)
 
 
 
-# Run the application
+# actually run the application here
 window.mainloop()

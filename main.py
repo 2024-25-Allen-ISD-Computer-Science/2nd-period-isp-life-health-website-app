@@ -35,7 +35,7 @@ entry.pack(pady=5)
 
 # this is where our backend function is
 def backend(sym):
-    return back.backend(sym)
+    return back.backend(sym, ["making", "doing", "guy"], ["making", "doing", "guy"])
 
 # return the text from backend into a label thing
 def get_text():

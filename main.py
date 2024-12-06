@@ -46,6 +46,7 @@ def backend(insx, titles, descps):
     return search(insx)
 
 stuff = [  # defining 2d array
+    ["unknown", "qeoruqldnajksnvkxcm"],
     ["cancer", "bald, balding, weight loss, fatigue"],
     ["flu", "fever, headache, body aches, chills, sore throat"],
     ["cold", "runny nose, congestion, sneezing, mild cough"],

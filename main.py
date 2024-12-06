@@ -46,17 +46,18 @@ def backend(insx, titles, descps):
     return search(insx)
 
 stuff = [  # defining 2d array
-    ["unknown", "qeoruqldnajksnvkxcm"],
-    ["cancer", "bald, balding, weight loss, fatigue"],
-    ["flu", "fever, headache, body aches, chills, sore throat"],
-    ["cold", "runny nose, congestion, sneezing, mild cough"],
-    ["migraine", "severe headache, nausea, sensitivity to light"],
-    ["diabetes", "frequent urination, increased thirst, fatigue, blurred vision"],
-    ["allergy", "sneezing, itchy eyes, runny nose, rash"],
-    ["covid-19", "fever, cough, loss of taste or smell, fatigue, shortness of breath"],
-    ["pneumonia", "chest pain, shortness of breath, fever, coughing"],
-    ["anemia", "fatigue, weakness, pale skin, shortness of breath"],
-    ["depression", "fatigue, loss of interest, difficulty concentrating, changes in sleep"]
+    
+    ["You are diagnosed with unknown", "qeoruqldnajksnvkxcm"],
+    ["You are diagnosed with cancer", "bald, balding, weight loss, fatigue"],
+    ["You are diagnosed with flu", "fever, headache, body aches, chills, sore throat"],
+    ["You are diagnosed with cold", "runny nose, congestion, sneezing, mild cough"],
+    ["You are diagnosed with migraine", "severe headache, nausea, sensitivity to light"],
+    ["You are diagnosed with diabetes", "frequent urination, increased thirst, fatigue, blurred vision"],
+    ["You are diagnosed with allergy", "sneezing, itchy eyes, runny nose, rash"],
+    ["You are diagnosed with covid-19", "fever, cough, loss of taste or smell, fatigue, shortness of breath"],
+    ["You are diagnosed with pneumonia", "chest pain, shortness of breath, fever, coughing"],
+    ["You are diagnosed with anemia", "fatigue, weakness, pale skin, shortness of breath"],
+    ["You are diagnosed with depression", "fatigue, loss of interest, difficulty concentrating, changes in sleep"]
 ]
 
 cond = [i[0] for i in stuff] # spllitting the 2d array into the conditions i[0] the first option

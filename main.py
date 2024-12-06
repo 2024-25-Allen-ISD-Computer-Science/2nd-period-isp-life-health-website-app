@@ -1,123 +1,80 @@
-import tkinter as tk
-from tkinter import ttk
-import back
+import sys
 
-# make main window
-window = tk.Tk()
-window.title("Health Diagnosis Tool")
-window.geometry("500x400")  # set resolution
-window.configure(bg="#d4f1f9")  # background color
+def backend(insx, titles, descps):
+    from sklearn.feature_extraction.text import TfidfVectorizer
+    from sklearn.neighbors import KNeighborsClassifier
+    from nltk.stem import WordNetLemmatizer
+    from nltk.corpus import wordnet
+    import nltk
 
-# making notebook to switch between different pages
-notebook = ttk.Notebook(window)
-notebook.pack(fill='both', expand=True)
+    nltk.download("wordnet")
+    nltk.download("omw-1.4")
 
-# main gui
-main_frame = ttk.Frame(notebook, width=500, height=400)
-main_frame.pack(fill='both', expand=True)
-notebook.add(main_frame, text="Diagnosis Tool")
+    def derive(texts):
+        lem = WordNetLemmatizer() # this word lemmatizer function just gets the deriviatives of the word using the databases downloaded earlier
+        devd = []
+        for text in texts:
+            words = text.split()
+            combined = " ".join(
+                lem.lemmatize(word.lower(), pos=wordnet.VERB) + " " + # for verbs
+                lem.lemmatize(word.lower(), pos=wordnet.NOUN) # and nouns
+                for word in words
+            )
+            devd.append(combined)
+        return devd
 
-# second tab for explanation
-explanation_frame = ttk.Frame(notebook, width=500, height=400)
-explanation_frame.pack(fill='both', expand=True)
-notebook.add(explanation_frame, text="How it Works")
+    def search(inn):
 
-# main gui code
+        derive_descps = derive(descps) # using the derive function
 
-# label for the title
-title_label = tk.Label(
-    main_frame, 
-    text="Diagnosing Tool", 
-    font=("Helvetica", 16, "bold"),
-    bg="#d4f1f9",
-    fg="#003366",
-    pady=20
-)
-title_label.pack()
+        vec = TfidfVectorizer() # converting the words into numbers/vectors/tokens using an importance algorithm that conisders how many times a word is used, the uniqueness of the word, etc.
+        vector_descps = vec.fit_transform(derive_descps) # fitting the vectors to the words
 
-# professional sounding explanation
-explanation_text = """
-This tool uses machine learning to predict possible conditions
-based on the symptoms you provide. It processes your input
-using a vectorizer to convert symptoms into numbers and then
-finds the best match using a k-nearest neighbor algorithm.
+        main_m = KNeighborsClassifier(n_neighbors=1) # modified complex distance formula to find distance between vectors and choose the closest one
+        main_m.fit(vector_descps, titles) # assign the vectorized descriptions to the titles
 
-It helps identify potential conditions like flu, cold, cancer, 
-diabetes, and more based on the description of symptoms you provide.
-"""
-explanation_label = tk.Label(
-    explanation_frame, 
-    text=explanation_text, 
-    font=("Helvetica", 12),
-    bg="#d4f1f9", 
-    fg="#003366", 
-    justify="left", 
-    padx=20, 
-    pady=20
-)
-explanation_label.pack()
 
-# take user input from here
-input_label = tk.Label(
-    main_frame, 
-    text="Enter your symptoms below:", 
-    font=("Helvetica", 12),
-    bg="#d4f1f9",
-    fg="#003366"
-)
-input_label.pack(pady=10)
+        def search_model(ina):
+            d_ina = derive([ina])[0] # derive input nouns and verbs
+            ina_vec = vec.transform([d_ina]) # vectorize derived input
+            prediction = main_m.predict(ina_vec) # use the distance formula neighbor algorithm to find the closest matching titles based on descriptions
+            return prediction[0]
 
-# input textbox
-entry = tk.Entry(main_frame, font=("Helvetica", 12), width=35, bd=2, relief="solid")
-entry.pack(pady=5)
+        final = search_model(insx)
+        return final
 
-# our marvelous backend func
-def backend(sym):
-    stuff = [  # defining 2d array
-        ["cancer", "bald, balding, weight loss, fatigue"],
-        ["flu", "fever, headache, body aches, chills, sore throat"],
-        ["cold", "runny nose, congestion, sneezing, mild cough"],
-        ["migraine", "severe headache, nausea, sensitivity to light"],
-        ["diabetes", "frequent urination, increased thirst, fatigue, blurred vision"],
-        ["allergy", "sneezing, itchy eyes, runny nose, rash"],
-        ["covid-19", "fever, cough, loss of taste or smell, fatigue, shortness of breath"],
-        ["pneumonia", "chest pain, shortness of breath, fever, coughing"],
-        ["anemia", "fatigue, weakness, pale skin, shortness of breath"],
-        ["depression", "fatigue, loss of interest, difficulty concentrating, changes in sleep"]
-    ]
+    return search(insx)
 
-    cond = [i[0] for i in stuff] # spllitting the 2d array into the conditions i[0] the first option
-    symp = [i[1] for i in stuff] # and i[1] the second one with the descriptions for everything
+stuff = [  # defining 2d array
+    ["unknown", "qeoruqldnajksnvkxcm"],
+    ["cancer", "bald, balding, weight loss, fatigue"],
+    ["flu", "fever, headache, body aches, chills, sore throat"],
+    ["cold", "runny nose, congestion, sneezing, mild cough"],
+    ["migraine", "severe headache, nausea, sensitivity to light"],
+    ["diabetes", "frequent urination, increased thirst, fatigue, blurred vision"],
+    ["allergy", "sneezing, itchy eyes, runny nose, rash"],
+    ["covid-19", "fever, cough, loss of taste or smell, fatigue, shortness of breath"],
+    ["pneumonia", "chest pain, shortness of breath, fever, coughing"],
+    ["anemia", "fatigue, weakness, pale skin, shortness of breath"],
+    ["depression", "fatigue, loss of interest, difficulty concentrating, changes in sleep"]
+]
 
-    return back.backend(sym, cond, symp)
+cond = [i[0] for i in stuff] # spllitting the 2d array into the conditions i[0] the first option
+symp = [i[1] for i in stuff] # and i[1] the second one with the descriptions for everything
 
-# return the text from backend into a label
-def get_text():
-    text = entry.get()
-    processed_text = backend(text)
-    result_label = tk.Label(
-        main_frame, 
-        text=f"Predicted Condition: {processed_text}", 
-        font=("Helvetica", 12), 
-        bg="#d4f1f9",
-        fg="#003366",
-        pady=10
-    )
-    result_label.pack()
 
-# submit button
-submit_button = tk.Button(
-    main_frame, 
-    text="Submit", 
-    font=("Helvetica", 12, "bold"), 
-    bg="#006699", 
-    fg="white", 
-    activebackground="#005580",
-    activeforeground="white",
-    relief="raised",
-    command=get_text
-)
-submit_button.pack(pady=20)
 
-# run app
-window.mainloop()
+def main():
+    try:
+        with open('user_input.txt', 'r') as input_file:
+            user_input = input_file.readline().strip()
+
+        with open('output.txt', 'w') as output_file:
+            output_file.write(backend(user_input, cond, symp))
+
+    except Exception as e:
+        with open('output.txt', 'w') as output_file:
+            output_file.write(f"Error: {str(e)}")
+
+if __name__ == "__main__":
+    main()

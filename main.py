@@ -71,7 +71,8 @@ def main():
             user_input = input_file.readline().strip()
 
         with open('output.txt', 'w') as output_file:
-            output_file.write(backend(user_input, cond, symp))
+            oop = backend(user_input, cond, symp)
+            output_file.write(oop)
 
     except Exception as e:
         with open('output.txt', 'w') as output_file:

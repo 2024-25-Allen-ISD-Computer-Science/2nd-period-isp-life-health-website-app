@@ -9,6 +9,7 @@ setup:
 clean:
 	rm -f output.txt user_input.txt
 	touch output.txt user_input.txt
+	echo "LOADING" >> output.txt
 
 run:
 	node server.js

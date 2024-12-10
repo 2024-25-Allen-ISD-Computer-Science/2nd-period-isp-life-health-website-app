@@ -168,7 +168,7 @@ const diagnosisForm = document.getElementById("diagnosisForm");
 const outputElement = document.getElementById("output");
         
 function checkOutput() {
-    while (!outputElement.textContent.trim()) {
+    while (!outputElement.textContent.trim() && outputElement.textContent !="loading") {
         outputElement.textContent = "loading";
     }
 }

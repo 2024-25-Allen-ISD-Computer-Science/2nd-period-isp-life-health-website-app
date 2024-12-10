@@ -172,8 +172,8 @@ function checkOutput() {
         outputElement.textContent = "loading";
     }
 }
-checkOutput()
-        
+setInterval(checkOutput, 100);
+
 diagnosisLink.addEventListener("click", function(e) {
     e.preventDefault();
     diagnosisPage.style.display = "block";

@@ -168,11 +168,11 @@ const diagnosisForm = document.getElementById("diagnosisForm");
 const outputElement = document.getElementById("output");
         
 function checkOutput() {
-    if (!outputElement.textContent.trim()) {
+    while (!outputElement.textContent.trim()) {
         outputElement.textContent = "loading";
     }
 }
-setInterval(checkOutput, 1);
+setInterval(checkOutput, 100);
         
 diagnosisLink.addEventListener("click", function(e) {
     e.preventDefault();

@@ -4,5 +4,6 @@
 - to do it manually:
   - ```pip install scikit-learn nltk```
   - ```npm install cors express```
-  - ```rm user_input.txt output.txt && touch user_input.txt output.txt && echo "LOADING" >> output.txt```
+  - ```rm user_input.txt output.txt && touch user_input.txt output.txt```
+  - ```echo "LOADING" >> output.txt```
   - ```node server.js```

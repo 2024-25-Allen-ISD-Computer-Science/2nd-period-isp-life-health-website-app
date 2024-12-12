@@ -5,6 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Health Diagnosis</title>
     <style>
+        .loading-bar-container {
+            opacity: 0;
+            margin: auto;
+  width: 80%;
+  height: 10px;
+  background: #ddd;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.loading-bar {
+  height: 100%;
+  background: #4caf50;
+  width: 0;
+}
+
+@keyframes grow {
+  0% { width: 0; }
+  50% { width: 100%; }
+  100% { width: 0; }
+} 
         * {
             margin: 0;
             padding: 0;
@@ -137,11 +158,15 @@
             <p>Enter your symptoms</p>
         </header>
         <main>
+            
         <form id="inF">
             <textarea id="usI" name="usI" placeholder="Type out your symptoms here"></textarea><br>
             <button onclick="location.reload()" class="btn">Return</button>
             <button type="submit" class="btn">Enter</button>
         </form>
+        <div class="loading-bar-container" id="load">
+            <div class="loading-bar" id="load-t"></div>
+          </div>
         <p id="output"></p>
 
         </main>
@@ -158,40 +183,75 @@
     </div>
     <script src="script.js"></script>
     <script>
-const diagnosisLink = document.querySelector('a[href="diagnosis.html"]');
-const dashboardLink = document.querySelector('a[href="dashboard.html"]');
-const diagnosisPage = document.getElementById("diagnosis");
-const dashboardPage = document.getElementById("dashboard");
-
-const diagnosisForm = document.getElementById("diagnosisForm");
-
-const outputElement = document.getElementById("output");
+        const diagnosisLink = document.querySelector('a[href="diagnosis.html"]');
+        const dashboardLink = document.querySelector('a[href="dashboard.html"]');
+        const diagnosisPage = document.getElementById("diagnosis");
+        const dashboardPage = document.getElementById("dashboard");
+        let buttonClicked = false;
         
-function checkOutput() {
-    while (!outputElement.textContent.trim() && outputElement.textContent !="loading") {
-        outputElement.textContent = "loading";
-    }
-}
-setInterval(checkOutput, 0);
+        const loadingBar = document.getElementById("load");
+        const loadingBarT = document.getElementById("load-t");
+        const outputElement = document.getElementById("output");
+        
+        diagnosisLink.addEventListener("click", function(e) {
+            e.preventDefault();
+            diagnosisPage.style.display = "block";
+            document.querySelector('header').style.display = "none";
+            dashboardPage.style.display = "none";
+        });
+        
+        dashboardLink.addEventListener("click", function(e) {
+            e.preventDefault();
+            dashboardPage.style.display = "block";
+            document.querySelector('header').style.display = "none";
+            diagnosisPage.style.display = "none";
+        });
+        
+        function feO() {
+            fetch('/output')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('output').innerText = data;
+                })
+                .catch(error => {
+                    document.getElementById('output').innerText = error.message;
+                });
+        }
 
-diagnosisLink.addEventListener("click", function(e) {
-    e.preventDefault();
-    diagnosisPage.style.display = "block";
-    document.querySelector('header').style.display = "none";
-    dashboardPage.style.display = "none";
-});
-
-dashboardLink.addEventListener("click", function(e) {
-    e.preventDefault();
-    dashboardPage.style.display = "block";
-    document.querySelector('header').style.display = "none";
-    diagnosisPage.style.display = "none";
-});
-
-diagnosisForm.addEventListener("submit", function(e) {
-    e.preventDefault();
-    const symptoms = document.getElementById("usI").value;
-});
-    </script>
+        
+        document.getElementById('inF').addEventListener('submit', (event) => {
+            event.preventDefault();
+            console.log("BUTTON CLICKED");
+            buttonClicked = true;
+            const usI = document.getElementById('usI').value;
+            loadingBar.style.opacity = 1;
+            outputElement.textContent = "";
+            loadingBarT.style.animation = "none";
+            void loadingBarT.offsetWidth;
+            loadingBarT.style.animation = "grow 14s linear";
+        
+            setTimeout(() => {
+                console.log("7s completed");
+                feO(); 
+                loadingBar.style.opacity = 0;
+            }, 7000);
+        
+            fetch('/update-python', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ input: usI })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log("data sent");
+            })
+            .catch(error => {
+                console.error(error.message);
+            });
+        });
+        </script>
+        
 </body>
 </html>

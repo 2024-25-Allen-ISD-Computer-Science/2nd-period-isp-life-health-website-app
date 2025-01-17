@@ -57,8 +57,11 @@ stuff = [  # defining 2d array
     ["You are diagnosed with covid-19", "fever, cough, loss of taste or smell, fatigue, shortness of breath"],
     ["You are diagnosed with pneumonia", "chest pain, shortness of breath, fever, coughing"],
     ["You are diagnosed with anemia", "fatigue, weakness, pale skin, shortness of breath"],
-    ["You are diagnosed with depression", "fatigue, loss of interest, difficulty concentrating, changes in sleep"]
+    ["You are diagnosed with depression", "fatigue, loss of interest, difficulty concentrating, changes in sleep"],
+    ["You are diagnosed with asthma", "wheezing, shortness of breath, chest tightness, coughing"],
+    ["You are diagnosed with hypertension", "headaches, shortness of breath, nosebleeds, dizziness"]
 ]
+
 
 cond = [i[0] for i in stuff] # spllitting the 2d array into the conditions i[0] the first option
 symp = [i[1] for i in stuff] # and i[1] the second one with the descriptions for everything

@@ -1,0 +1,62 @@
+<form id="inF" onsubmit="preventSubmit(event)">
+    <textarea id="usI" name="usI" placeholder="Type out your symptoms here"></textarea><br>
+    <button type="submit" class="btn">Enter</button>
+</form>
+<p id="output"></p>
+
+<script>
+    if (performance.navigation.type === 1) {
+    fetch('/reload', { method: 'POST' })
+    .then(response => response.json())
+    .then(data => console.log('reload ', data))
+    .catch(error => console.error('error ', error));
+}
+
+    let buttonClicked = false;
+    function preventSubmit(event) {
+        event.preventDefault(); 
+    }
+    
+    const outputElement = document.getElementById("output");
+
+    
+    function feO() {
+        fetch('/output')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('output').innerText = data;
+            })
+            .catch(error => {
+                document.getElementById('output').innerText = error.message;
+            });
+    }
+
+    
+    document.getElementById('inF').addEventListener('submit', (event) => {
+        event.preventDefault();
+        console.log("BUTTON CLICKED");
+        buttonClicked = true;
+        const usI = document.getElementById('usI').value;
+        outputElement.textContent = "";
+    
+        setTimeout(() => {
+            console.log("7s completed");
+            feO(); 
+        }, 7000);
+    
+        fetch('/update-python', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ input: usI })
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log("data sent");
+        })
+        .catch(error => {
+            console.error(error.message);
+        });
+    });
+</script>

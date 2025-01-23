@@ -4,28 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Health Diagnosis</title>
+    <link rel="icon" href="favicon.ico">
     <style>
-        .loading-bar-container {
-            opacity: 0;
-            margin: auto;
-  width: 80%;
-  height: 10px;
-  background: #ddd;
-  border-radius: 5px;
-  overflow: hidden;
-}
-
-.loading-bar {
-  height: 100%;
-  background: #4caf50;
-  width: 0;
-}
-
-@keyframes grow {
-  0% { width: 0; }
-  50% { width: 100%; }
-  100% { width: 0; }
-} 
         * {
             margin: 0;
             padding: 0;
@@ -65,11 +45,13 @@
             margin: 10px;
             font-size: 1.1em;
             text-align: center;
+            display: inline-block;
         }
 
         .btn:hover {
             background-color: #c2185b;
         }
+
         .buttons-dash {
             margin-top: 40px;
         }
@@ -124,6 +106,28 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
+        .loading-bar-container {
+            opacity: 0;
+            margin: auto;
+            width: 80%;
+            height: 10px;
+            background: #ddd;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .loading-bar {
+            height: 100%;
+            background: #4caf50;
+            width: 0;
+        }
+
+        @keyframes grow {
+            0% { width: 0; }
+            50% { width: 100%; }
+            100% { width: 0; }
+        }
+
         @media (max-width: 768px) {
             header h1 {
                 font-size: 2em;
@@ -148,94 +152,84 @@
         <h1>Health Diagnosis Tool</h1>
         <p>Diagnoses you based on your symptoms</p>
         <div class="buttons-dash">
-        <a href="diagnosis.html" class=""></a>
-        <a href="dashboard.html" class="btn">Dashboard</a>
-    </div></header>
+            <a href="#diagnosis" class="btn">Diagnosis</a>
+            <a href="#dashboard" class="btn">Dashboard</a>
+        </div>
+    </header>
 
-    <div id="diagnosis">
+    <section id="diagnosis">
         <header>
             <h2>Diagnosis</h2>
             <p>Enter your symptoms</p>
         </header>
         <main>
-            
-        <form id="inF">
-            <textarea id="usI" name="usI" placeholder="Type out your symptoms here"></textarea><br>
-            
-            <button type="submit" class="btn">Enter</button>
-        </form>
-        <div class="loading-bar-container" id="load">
-            <div class="loading-bar" id="load-t"></div>
-          </div>
-        <p id="output"></p>
-
+            <form id="inF">
+                <label for="usI">Your Symptoms:</label><br>
+                <textarea id="usI" name="usI" placeholder="Type out your symptoms here"></textarea><br>
+                <button type="submit" class="btn">Enter</button>
+            </form>
+            <div class="loading-bar-container" id="load">
+                <div class="loading-bar" id="load-t"></div>
+            </div>
+            <p id="output"></p>
         </main>
-    </div>
+    </section>
 
-    <div id="dashboard" style="display:none;">
+    <section id="dashboard" style="display:none;">
         <header>
             <h2>Dashboard</h2>
-            <p>add stuff here eventually</p>
+            <p>Add stuff here eventually</p>
         </header>
         <main>
             <div id="healthRecords"></div>
         </main>
-    </div>
+    </section>
+
     <script src="script.js"></script>
     <script>
-        const diagnosisLink = document.querySelector('a[href="diagnosis.html"]');
-        const dashboardLink = document.querySelector('a[href="dashboard.html"]');
         const diagnosisPage = document.getElementById("diagnosis");
         const dashboardPage = document.getElementById("dashboard");
-        let buttonClicked = false;
-        
         const loadingBar = document.getElementById("load");
         const loadingBarT = document.getElementById("load-t");
         const outputElement = document.getElementById("output");
-        
-        diagnosisLink.addEventListener("click", function(e) {
+
+        document.querySelector('a[href="#diagnosis"]').addEventListener("click", (e) => {
             e.preventDefault();
             diagnosisPage.style.display = "block";
-            document.querySelector('header').style.display = "none";
             dashboardPage.style.display = "none";
         });
-        
-        dashboardLink.addEventListener("click", function(e) {
+
+        document.querySelector('a[href="#dashboard"]').addEventListener("click", (e) => {
             e.preventDefault();
             dashboardPage.style.display = "block";
-            document.querySelector('header').style.display = "none";
             diagnosisPage.style.display = "none";
         });
-        
-        function feO() {
+
+        function fetchOutput() {
             fetch('/output')
                 .then(response => response.text())
                 .then(data => {
-                    document.getElementById('output').innerText = data;
+                    outputElement.innerText = data;
                 })
                 .catch(error => {
-                    document.getElementById('output').innerText = error.message;
+                    outputElement.innerText = error.message;
                 });
         }
 
-        
         document.getElementById('inF').addEventListener('submit', (event) => {
             event.preventDefault();
-            console.log("BUTTON CLICKED");
-            buttonClicked = true;
             const usI = document.getElementById('usI').value;
             loadingBar.style.opacity = 1;
             outputElement.textContent = "";
             loadingBarT.style.animation = "none";
             void loadingBarT.offsetWidth;
-            loadingBarT.style.animation = "grow 14s linear";
-        
+            loadingBarT.style.animation = "grow 7s linear";
+
             setTimeout(() => {
-                console.log("7s completed");
-                feO(); 
+                fetchOutput();
                 loadingBar.style.opacity = 0;
             }, 7000);
-        
+
             fetch('/update-python', {
                 method: 'POST',
                 headers: {
@@ -244,14 +238,10 @@
                 body: JSON.stringify({ input: usI })
             })
             .then(response => response.json())
-            .then(data => {
-                console.log("data sent");
-            })
             .catch(error => {
                 console.error(error.message);
             });
         });
-        </script>
-        
+    </script>
 </body>
 </html>

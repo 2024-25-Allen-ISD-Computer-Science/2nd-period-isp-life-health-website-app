@@ -8,24 +8,25 @@
         .loading-bar-container {
             opacity: 0;
             margin: auto;
-  width: 80%;
-  height: 10px;
-  background: #ddd;
-  border-radius: 5px;
-  overflow: hidden;
-}
+            width: 80%;
+            height: 10px;
+            background: #ddd;
+            border-radius: 5px;
+            overflow: hidden;
+        }
 
-.loading-bar {
-  height: 100%;
-  background: #4caf50;
-  width: 0;
-}
+        .loading-bar {
+            height: 100%;
+            background: #4caf50;
+            width: 0;
+        }
 
-@keyframes grow {
-  0% { width: 0; }
-  50% { width: 100%; }
-  100% { width: 0; }
-} 
+        @keyframes grow {
+            0% { width: 0; }
+            50% { width: 100%; }
+            100% { width: 0; }
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -70,6 +71,7 @@
         .btn:hover {
             background-color: #c2185b;
         }
+
         .buttons-dash {
             margin-top: 40px;
         }
@@ -148,9 +150,10 @@
         <h1>Health Diagnosis Tool</h1>
         <p>Diagnoses you based on your symptoms</p>
         <div class="buttons-dash">
-        <a href="diagnosis.html" class=""></a>
-        <a href="dashboard.html" class="btn">Dashboard</a>
-    </div></header>
+            <a href="diagnosis.html" class=""></a>
+            <a href="dashboard.html" class="btn">Dashboard</a>
+        </div>
+    </header>
 
     <div id="diagnosis">
         <header>
@@ -158,17 +161,14 @@
             <p>Enter your symptoms</p>
         </header>
         <main>
-            
-        <form id="inF">
-            <textarea id="usI" name="usI" placeholder="Type out your symptoms here"></textarea><br>
-            
-            <button type="submit" class="btn">Enter</button>
-        </form>
-        <div class="loading-bar-container" id="load">
-            <div class="loading-bar" id="load-t"></div>
-          </div>
-        <p id="output"></p>
-
+            <form id="inF">
+                <textarea id="usI" name="usI" placeholder="Type out your symptoms here"></textarea><br>
+                <button type="submit" class="btn">Enter</button>
+            </form>
+            <div class="loading-bar-container" id="load">
+                <div class="loading-bar" id="load-t"></div>
+            </div>
+            <p id="output"></p>
         </main>
     </div>
 
@@ -176,37 +176,46 @@
         <header>
             <h2>Dashboard</h2>
             <p>add stuff here eventually</p>
+            <button id="backToMain" class="btn">Back to Main</button>
         </header>
         <main>
             <div id="healthRecords"></div>
         </main>
     </div>
+
     <script src="script.js"></script>
     <script>
         const diagnosisLink = document.querySelector('a[href="diagnosis.html"]');
         const dashboardLink = document.querySelector('a[href="dashboard.html"]');
         const diagnosisPage = document.getElementById("diagnosis");
         const dashboardPage = document.getElementById("dashboard");
+        const backToMainButton = document.getElementById("backToMain");
         let buttonClicked = false;
-        
+
         const loadingBar = document.getElementById("load");
         const loadingBarT = document.getElementById("load-t");
         const outputElement = document.getElementById("output");
-        
+
         diagnosisLink.addEventListener("click", function(e) {
             e.preventDefault();
             diagnosisPage.style.display = "block";
             document.querySelector('header').style.display = "none";
             dashboardPage.style.display = "none";
         });
-        
+
         dashboardLink.addEventListener("click", function(e) {
             e.preventDefault();
             dashboardPage.style.display = "block";
             document.querySelector('header').style.display = "none";
             diagnosisPage.style.display = "none";
         });
-        
+
+        backToMainButton.addEventListener("click", function () {
+            dashboardPage.style.display = "none";
+            document.querySelector('header').style.display = "block";
+            diagnosisPage.style.display = "block";
+        });
+
         function feO() {
             fetch('/output')
                 .then(response => response.text())
@@ -218,7 +227,6 @@
                 });
         }
 
-        
         document.getElementById('inF').addEventListener('submit', (event) => {
             event.preventDefault();
             console.log("BUTTON CLICKED");
@@ -229,13 +237,13 @@
             loadingBarT.style.animation = "none";
             void loadingBarT.offsetWidth;
             loadingBarT.style.animation = "grow 14s linear";
-        
+
             setTimeout(() => {
                 console.log("7s completed");
                 feO(); 
                 loadingBar.style.opacity = 0;
             }, 7000);
-        
+
             fetch('/update-python', {
                 method: 'POST',
                 headers: {
@@ -251,7 +259,6 @@
                 console.error(error.message);
             });
         });
-        </script>
-        
+    </script>
 </body>
 </html>

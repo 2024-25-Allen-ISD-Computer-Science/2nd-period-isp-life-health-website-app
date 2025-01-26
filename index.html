@@ -270,15 +270,26 @@
         });
 
         function feO() {
-            fetch('/output')
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById('output').innerText = data;
-                })
-                .catch(error => {
-                    document.getElementById('output').innerText = error.message;
-                });
-        }
+    fetch('/output')
+        .then(response => response.text())
+        .then(data => {
+            
+            document.getElementById('output').innerText = data;
+
+            
+            const button = document.createElement('button');
+            
+           
+            button.innerText = data;
+            
+          
+            document.body.appendChild(button);
+        })
+        .catch(error => {
+            document.getElementById('output').innerText = error.message;
+        });
+}
+
 
         document.getElementById('inF').addEventListener('submit', (event) => {
             event.preventDefault();

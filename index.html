@@ -199,13 +199,6 @@
         <main>
             <div id="healthRecords"></div>
     
-            <h2> Treatment Buttons Section </h2>
-            <div class="buttons-dash">
-                <button class="btn" onclick="showTreatment('cancer')">How to Treat Cancer</button>
-                <button class="btn" onclick="showTreatment('flu')">How to Treat the Flu</button>
-                <button class="btn" onclick="showTreatment('cold')">How to Treat a Cold</button>
-                <button class="btn" onclick="window.location.href='migraines-treatment.html'">How to Treat Migraines</button>
-            </div>
     
             <!-- New Health Tips Section -->
             <div id="healthTips">
@@ -274,7 +267,7 @@
         .then(response => response.text())
         .then(data => {
             
-            document.getElementById('output').innerText = data;
+            document.getElementById('output').innerText = "you are diagnosed with " + data;
 
             
             const button = document.createElement('button');
@@ -283,7 +276,16 @@
             button.innerText = data;
             
           
-            document.body.appendChild(button);
+            document.getElementById('diagnosis').appendChild(button);
+            button.style.display = "block";
+            button.style.margin = "20px auto";
+            button.addEventListener('click', function() {
+                if (data != 'cold'){
+                window.location.href = 'https://medlineplus.gov/'+data+'.html';}
+                else{
+                    window.location.href = 'https://medlineplus.gov/commoncold.html';
+                }
+                });
         })
         .catch(error => {
             document.getElementById('output').innerText = error.message;

@@ -182,6 +182,8 @@
             <form id="inF">
                 <textarea id="usI" name="usI" placeholder="Type out your symptoms here"></textarea><br>
                 <button type="submit" class="btn">Enter</button>
+                <!-- Clear Button -->
+                <button type="button" id="clearBtn" class="btn" style="background-color: #ff9800;">Clear</button>
             </form>
             <div class="loading-bar-container" id="load">
                 <div class="loading-bar" id="load-t"></div>
@@ -241,6 +243,8 @@
         const loadingBar = document.getElementById("load");
         const loadingBarT = document.getElementById("load-t");
         const outputElement = document.getElementById("output");
+        const clearButton = document.getElementById("clearBtn");
+        const inputField = document.getElementById("usI");
 
         diagnosisLink.addEventListener("click", function(e) {
             e.preventDefault();
@@ -262,35 +266,43 @@
             diagnosisPage.style.display = "block";
         });
 
-        function feO() {
-    fetch('/output')
-        .then(response => response.text())
-        .then(data => {
-            
-            document.getElementById('output').innerText = "you are diagnosed with " + data;
-
-            
-            const button = document.createElement('button');
-            
-           
-            button.innerText = data;
-            
-          
-            document.getElementById('diagnosis').appendChild(button);
-            button.style.display = "block";
-            button.style.margin = "20px auto";
-            button.addEventListener('click', function() {
-                if (data != 'cold'){
-                window.open('https://medlineplus.gov/'+data+'.html', '_blank');}  // Open in a new tab
-                else{
-                    window.open('https://medlineplus.gov/commoncold.html', '_blank');} // Open in a new tab
-                });
-        })
-        .catch(error => {
-            document.getElementById('output').innerText = error.message;
+        clearButton.addEventListener("click", function() {
+            // Clear the input field and output
+            inputField.value = "";
+            outputElement.textContent = "";
+            loadingBar.style.opacity = 0;
+            loadingBarT.style.animation = "none";
         });
-}
 
+        function feO() {
+            fetch('/output')
+                .then(response => response.text())
+                .then(data => {
+                    
+                    document.getElementById('output').innerText = "you are diagnosed with " + data;
+
+                    
+                    const button = document.createElement('button');
+                    
+                   
+                    button.innerText = data;
+                    
+                  
+                    document.getElementById('diagnosis').appendChild(button);
+                    button.style.display = "block";
+                    button.style.margin = "20px auto";
+                    button.addEventListener('click', function() {
+                        if (data != 'cold'){
+                            window.open('https://medlineplus.gov/' + data + '.html', '_blank'); // Open in a new tab
+                        } else {
+                            window.open('https://medlineplus.gov/commoncold.html', '_blank'); // Open in a new tab
+                        }
+                    });
+                })
+                .catch(error => {
+                    document.getElementById('output').innerText = error.message;
+                });
+        }
 
         document.getElementById('inF').addEventListener('submit', (event) => {
             event.preventDefault();

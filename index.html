@@ -281,10 +281,9 @@
             button.style.margin = "20px auto";
             button.addEventListener('click', function() {
                 if (data != 'cold'){
-                window.location.href = 'https://medlineplus.gov/'+data+'.html';}
+                window.open('https://medlineplus.gov/'+data+'.html', '_blank');}  // Open in a new tab
                 else{
-                    window.location.href = 'https://medlineplus.gov/commoncold.html';
-                }
+                    window.open('https://medlineplus.gov/commoncold.html', '_blank');} // Open in a new tab
                 });
         })
         .catch(error => {

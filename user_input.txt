@@ -1,1 +1,1 @@
-fever, balding, nose, stiff, 
+headache, fever

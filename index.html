@@ -126,10 +126,18 @@
             display: none;
         }
 
-        #healthRecords, #healthTips {
+        #healthRecords, #healthTips{
             margin-top: 30px;
             background-color: #fff;
             padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        #healthTools {
+            margin-top: 40px;
+            background-color: #fff;
+            padding: 30px;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
@@ -226,12 +234,22 @@
         </header>
         <main>
             <div id="healthRecords">
-                <h3>Your Health Records</h3>
+                <h2>Your Health Records</h2>
                 <p>No records available yet. Start by entering your symptoms above.</p>
             </div>
+            
+            <div id="healthTools">
+                <h2>Other Health Tools</h2>
+                <a href="bodyfatpercentagecalc.html" class="btn">Body Fat Percentage Calculator</a>
+                <a href="bmicalc.html" class="btn">BMI Calculator</a>
+                <a href="caloriecalc.html" class="btn">Calorie Calculator</a>
+                <a href="idealweightcalc.html" class="btn">Ideal Weight Calculator</a>
+                
+            </div>
+
 
             <div id="healthTips">
-                <h3>Daily Health Tips</h3>
+                <h2>Daily Health Tips</h2>
                 <img src="https://via.placeholder.com/800x200.png?text=Health+Tips+Image" alt="Health Tips" class="health-image">
                 <ul>
                     <li>Drink plenty of water to stay hydrated.</li>

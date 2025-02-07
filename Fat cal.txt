@@ -1,0 +1,65 @@
+def navy_body_fat_percentage(gender, waist, neck, height, hip=None):
+    """
+    Calculate body fat percentage using the U.S. Navy Body Fat Formula.
+    :param gender: 'male' or 'female'
+    :param waist: Waist circumference in cm
+    :param neck: Neck circumference in cm
+    :param height: Height in cm
+    :param hip: (Only for females) Hip circumference in cm
+    :return: Body fat percentage
+    """
+    import math
+    if gender.lower() == 'male':
+        body_fat = 86.010 * math.log10(waist - neck) - 70.041 * math.log10(height) + 36.76
+    elif gender.lower() == 'female':
+        if hip is None:
+            raise ValueError("Hip measurement is required for females.")
+        body_fat = 163.205 * math.log10(waist + hip - neck) - 97.684 * math.log10(height) - 78.387
+    else:
+        raise ValueError("Invalid gender input. Use 'male' or 'female'.")
+    return round(body_fat, 4)
+
+def bmi_body_fat_percentage(bmi, age, gender):
+    """
+    Calculate body fat percentage using BMI method.
+    :param bmi: Body Mass Index (kg/m^2)
+    :param age: Age in years
+    :param gender: 'male' or 'female'
+    :return: Body fat percentage
+    """
+    if gender.lower() == 'male':
+        body_fat = (1.20 * bmi) + (0.23 * age) - 16.2
+    elif gender.lower() == 'female':
+        body_fat = (1.20 * bmi) + (0.23 * age) - 5.4
+    else:
+        raise ValueError("Invalid gender input. Use 'male' or 'female'.")
+    return round(body_fat, 4)
+
+def main():
+    print("Body Fat Percentage Calculator")
+    gender = input("Enter gender (male/female): ").strip().lower()
+    method = input("Choose method (navy/bmi): ").strip().lower()
+    
+    if method == "navy":
+        height = float(input("Enter height (cm): "))
+        waist = float(input("Enter waist circumference (cm): "))
+        neck = float(input("Enter neck circumference (cm): "))
+        if gender == "female":
+            hip = float(input("Enter hip circumference (cm): "))
+            body_fat = navy_body_fat_percentage(gender, waist, neck, height, hip)
+        else:
+            body_fat = navy_body_fat_percentage(gender, waist, neck, height)
+    elif method == "bmi":
+        weight = float(input("Enter weight (kg): "))
+        height = float(input("Enter height (cm): "))
+        age = int(input("Enter age: "))
+        bmi = weight / ((height / 100) ** 2)
+        body_fat = bmi_body_fat_percentage(bmi, age, gender)
+    else:
+        print("Invalid method chosen.")
+        return
+    
+    print(f"Estimated Body Fat Percentage: {body_fat}%")
+
+if __name__ == "__main__":
+    main()

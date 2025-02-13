@@ -252,7 +252,9 @@
             <div id="healthRecords">
                 <h2>Your Health Records</h2>
                 <p>No records available yet. Start by entering your symptoms above.</p>
+                <ul id="recordList"></ul>
             </div>
+        </main>        
             
             <div id="healthTools">
                 <h2>Other Health Tools</h2>
@@ -384,6 +386,20 @@
                 console.error(error.message);
             });
         });
+         // *** NEW CODE START ***
+    // Append symptoms to the health record list in the dashboard
+    const recordList = document.getElementById("recordList");
+
+document.getElementById('inF').addEventListener('submit', (event) => {
+    event.preventDefault();
+    const usI = document.getElementById('usI').value;
+    
+    if (usI.trim() !== "") {
+        const listItem = document.createElement("li");
+        listItem.textContent = usI;
+        recordList.appendChild(listItem);
+    }
+});
     </script>
 </body>
 </html>

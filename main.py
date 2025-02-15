@@ -45,22 +45,37 @@ def backend(insx, titles, descps):
 
     return search(insx)
 
-stuff = [  # defining 2d array
-    
-    ["unknown", "qeoruqldnajksnvkxcm"],
-    ["cancer", "bald, balding, weight loss, fatigue"],
-    ["flu", "fever, headache, body aches, chills, sore throat"],
-    ["cold", "runny nose, congestion, sneezing, mild cough"],
-    ["migraine", "severe headache, nausea, sensitivity to light"],
-    ["diabetes", "frequent urination, increased thirst, fatigue, blurred vision"],
-    ["allergy", "sneezing, itchy eyes, runny nose, rash"],
-    ["covid-19", "fever, cough, loss of taste or smell, fatigue, shortness of breath"],
-    ["pneumonia", "chest pain, shortness of breath, fever, coughing"],
-    ["anemia", "fatigue, weakness, pale skin, shortness of breath"],
-    ["depression", "fatigue, loss of interest, difficulty concentrating, changes in sleep"],
-    ["asthma", "wheezing, shortness of breath, chest tightness, coughing"],
-    ["hypertension", "headaches, shortness of breath, nosebleeds, dizziness"]
+stuff = [  
+
+    ["cancer", "unexplained weight loss, fatigue, night sweats, unusual lumps, prolonged pain"],
+    ["flu", "high fever, severe headache, muscle aches, chills, sore throat, dry cough"],
+    ["cold", "runny or stuffy nose, sneezing, mild sore throat, low-grade fever, mild cough"],
+    ["migraine", "throbbing headache, nausea, vomiting, visual disturbances, light and sound sensitivity"],
+    ["diabetes", "excessive thirst, frequent urination, unexplained weight loss, extreme hunger, blurry vision, slow-healing wounds"],
+    ["allergy", "sneezing, nasal congestion, itchy or watery eyes, skin rash, hives, difficulty breathing"],
+    ["covid-19", "high fever, dry cough, loss of taste or smell, extreme fatigue, difficulty breathing, chest pain"],
+    ["pneumonia", "sharp chest pain, difficulty breathing, high fever, productive cough with phlegm, chills, rapid heartbeat"],
+    ["anemia", "chronic fatigue, pale or yellowish skin, dizziness, shortness of breath, cold hands and feet"],
+    ["depression", "sadness, loss of interest, sleep disturbances, worthlessness, difficulty concentrating"],
+    ["asthma", "recurrent wheezing, breathlessness, chest tightness, cough"],
+    ["hypertension", "frequent headaches, dizziness, blurred vision, chest pain, shortness of breath, nosebleeds"],
+    ["bronchitis", "cough with mucus, chest discomfort, shortness of breath, mild fever, wheezing"],
+    ["tuberculosis", "chronic cough with blood, night sweats, unintended weight loss, chest pain, prolonged fever"],
+    ["heart disease", "chest pain, shortness of breath, fatigue, irregular heartbeat, dizziness, swelling in legs"],
+    ["stroke", "sudden numbness or weakness, confusion, difficulty speaking, loss of coordination"],
+    ["kidney disease", "swelling in ankles, fatigue, nausea, difficulty urinating, muscle cramps, shortness of breath"],
+    ["liver disease", "yellowing of skin, abdominal pain, dark urine, nausea, fatigue, swollen legs"],
+    ["arthritis", "joint pain, swelling, stiffness, reduced range of motion"],
+    ["appendicitis", "severe abdominal pain, nausea, vomiting, fever, loss of appetite"],
+    ["meningitis", "severe headache, stiff neck, high fever, sensitivity to light, confusion, seizures"],
+    ["ulcer", "burning stomach pain, nausea, bloating, vomiting blood, unexplained weight loss"],
+    ["gastroenteritis", "diarrhea, nausea, vomiting, stomach cramps, fever, dehydration"],
+    ["multiple sclerosis", "numbness or tingling, vision problems, muscle weakness, balance issues, cognitive difficulties"],
+    ["Parkinson’s disease", "tremors, slow movement, muscle stiffness, impaired balance, speech difficulties"],
+    ["Alzheimer’s disease", "memory loss, confusion, difficulty recognizing people, mood changes, difficulty speaking or writing"],
+
 ]
+
 
 
 cond = [i[0] for i in stuff] # spllitting the 2d array into the conditions i[0] the first option

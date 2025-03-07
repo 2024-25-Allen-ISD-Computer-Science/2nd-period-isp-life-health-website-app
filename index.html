@@ -124,6 +124,7 @@
         /* Dashboard Styles */
         #dashboard {
             display: none;
+            text-align: center; /* NEW: Centering dashboard content */
         }
 
         #healthRecords, #healthTips, #funFacts{
@@ -155,9 +156,7 @@
             cursor: pointer;
             transition: background-color 0.3s ease;
             text-align: center;
-}
-
-
+        }
 
         #healthTips ul {
             list-style-type: none;
@@ -262,9 +261,7 @@
                 <a href="bmicalc.html" class="btn">BMI Calculator</a>
                 <a href="caloriecalc.html" class="btn">Calorie Calculator</a>
                 <a href="idealweightcalc.html" class="btn">Ideal Weight Calculator</a>
-                
             </div>
-
 
             <div id="healthTips">
                 <h2>Daily Health Tips</h2>
@@ -278,7 +275,7 @@
                     <li>Take breaks throughout the day to avoid burnout.</li>
                 </ul>
             </div>
-              <div id="funFacts">
+            <div id="funFacts">
                 <h2>Fun Facts</h2>
                 <ul>
                     <li>Your stomach gets a new lining every 3 to 4 days—otherwise, it would digest itself!</li>
@@ -400,16 +397,16 @@
     // Append symptoms to the health record list in the dashboard
     const recordList = document.getElementById("recordList");
 
-document.getElementById('inF').addEventListener('submit', (event) => {
-    event.preventDefault();
-    const usI = document.getElementById('usI').value;
-    
-    if (usI.trim() !== "") {
-        const listItem = document.createElement("li");
-        listItem.textContent = usI;
-        recordList.appendChild(listItem);
-    }
-});
+    document.getElementById('inF').addEventListener('submit', (event) => {
+        event.preventDefault();
+        const usI = document.getElementById('usI').value;
+        
+        if (usI.trim() !== "") {
+            const listItem = document.createElement("li");
+            listItem.textContent = usI;
+            recordList.appendChild(listItem);
+        }
+    });
     </script>
 </body>
 </html>

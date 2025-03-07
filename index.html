@@ -167,6 +167,43 @@
             margin: 10px 0;
             font-size: 1.1em;
         }
+/* This style applies to the disease information box, ensuring it matches the other text boxes */
+.box {
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+}
+
+.box h2 {
+    font-size: 1.8em;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.box-content {
+    margin-top: 10px;
+}
+
+.disease-item {
+    background-color: #fff;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.disease-item h3 {
+    font-size: 1.5em;
+    color: #0073e6;
+}
+
+.disease-item p {
+    font-size: 1.1em;
+    color: #333;
+    line-height: 1.6;
+}
 
         /* Images */
         .health-image {
@@ -262,7 +299,42 @@
                 <a href="caloriecalc.html" class="btn">Calorie Calculator</a>
                 <a href="idealweightcalc.html" class="btn">Ideal Weight Calculator</a>
             </div>
-
+            <div class="box">
+                <h2>Common Diseases and Their Treatments</h2>
+                <div class="box-content">
+                    <div class="disease-item">
+                        <h3>Common Cold</h3>
+                        <p><strong>Symptoms:</strong> Runny nose, sore throat, cough, mild fever, fatigue.</p>
+                        <p><strong>Treatment:</strong> Rest, staying hydrated, using nasal sprays, throat lozenges, and pain relievers.</p>
+                        <p><strong>Medications:</strong> Acetaminophen (Tylenol), Ibuprofen (Advil), Decongestants (Sudafed), Cough Syrup (Robitussin).</p>
+                    </div>
+                    <div class="disease-item">
+                        <h3>Flu (Influenza)</h3>
+                        <p><strong>Symptoms:</strong> High fever, chills, body aches, fatigue, cough, sore throat, headache.</p>
+                        <p><strong>Treatment:</strong> Rest, fluids, antiviral medications, and fever reducers.</p>
+                        <p><strong>Medications:</strong> Oseltamivir (Tamiflu), Acetaminophen (Tylenol), Ibuprofen (Advil), Antihistamines (Benadryl).</p>
+                    </div>
+                    <div class="disease-item">
+                        <h3>COVID-19</h3>
+                        <p><strong>Symptoms:</strong> Fever, cough, shortness of breath, loss of taste or smell, fatigue.</p>
+                        <p><strong>Treatment:</strong> Rest, hydration, and over-the-counter medications to manage symptoms. Severe cases may require hospitalization.</p>
+                        <p><strong>Medications:</strong> Remdesivir, Dexamethasone, Acetaminophen (Tylenol), Ibuprofen (Advil).</p>
+                    </div>
+                    <div class="disease-item">
+                        <h3>Strep Throat</h3>
+                        <p><strong>Symptoms:</strong> Sore throat, fever, swollen lymph nodes, red spots on the roof of the mouth.</p>
+                        <p><strong>Treatment:</strong> Antibiotics and rest. Gargling warm salt water can help soothe the throat.</p>
+                        <p><strong>Medications:</strong> Penicillin, Amoxicillin, Ibuprofen (Advil), Acetaminophen (Tylenol).</p>
+                    </div>
+                    <div class="disease-item">
+                        <h3>Allergies</h3>
+                        <p><strong>Symptoms:</strong> Sneezing, runny nose, itchy eyes, congestion, coughing.</p>
+                        <p><strong>Treatment:</strong> Avoiding allergens, taking antihistamines, using nasal sprays or eye drops.</p>
+                        <p><strong>Medications:</strong> Loratadine (Claritin), Diphenhydramine (Benadryl), Fluticasone (Flonase), Cetirizine (Zyrtec).</p>
+                    </div>
+                </div>
+            </div>
+            
             <div id="healthTips">
                 <h2>Daily Health Tips</h2>
                 <img src="https://via.placeholder.com/800x200.png?text=Health+Tips+Image" alt="Health Tips" class="health-image">

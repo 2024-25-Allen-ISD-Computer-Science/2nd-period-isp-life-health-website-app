@@ -124,7 +124,7 @@
         /* Dashboard Styles */
         #dashboard {
             display: none;
-            text-align: center; /* NEW: Centering dashboard content */
+            text-align: center; /* Centering dashboard content */
         }
 
         #healthRecords, #healthTips, #funFacts{
@@ -393,20 +393,39 @@
                 console.error(error.message);
             });
         });
-         // *** NEW CODE START ***
-    // Append symptoms to the health record list in the dashboard
-    const recordList = document.getElementById("recordList");
-
-    document.getElementById('inF').addEventListener('submit', (event) => {
-        event.preventDefault();
-        const usI = document.getElementById('usI').value;
         
-        if (usI.trim() !== "") {
-            const listItem = document.createElement("li");
-            listItem.textContent = usI;
-            recordList.appendChild(listItem);
-        }
-    });
+        // Append symptoms to the health record list in the dashboard and update localStorage
+        const recordList = document.getElementById("recordList");
+
+        document.getElementById('inF').addEventListener('submit', (event) => {
+            event.preventDefault();
+            const usI = document.getElementById('usI').value;
+            
+            if (usI.trim() !== "") {
+                const listItem = document.createElement("li");
+                listItem.textContent = usI;
+                recordList.appendChild(listItem);
+                
+                // Update localStorage
+                let records = localStorage.getItem('healthRecords');
+                records = records ? JSON.parse(records) : [];
+                records.push(usI);
+                localStorage.setItem('healthRecords', JSON.stringify(records));
+            }
+        });
+
+        // Load stored records from localStorage on page load
+        (function loadStoredRecords() {
+            let records = localStorage.getItem('healthRecords');
+            if (records) {
+                records = JSON.parse(records);
+                records.forEach(record => {
+                    const listItem = document.createElement("li");
+                    listItem.textContent = record;
+                    recordList.appendChild(listItem);
+                });
+            }
+        })();
     </script>
 </body>
 </html>
